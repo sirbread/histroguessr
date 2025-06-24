@@ -54,16 +54,21 @@ def fetch_full_redacted_event():
                     heading.decompose()
                     break
 
+        actual_year = None
+        for text_node in soup.find_all(string=True):
+            parent = text_node.parent.name
+            if parent not in ["script", "style"] and len(text_node.strip()) > 0:
+                if actual_year is None:
+                    match = YEAR_PATTERN.search(text_node)
+                    if match:
+                        actual_year = int(match.group())
+
         for text_node in soup.find_all(string=True):
             parent = text_node.parent.name
             if parent not in ["script", "style"] and len(text_node.strip()) > 0:
                 redacted = YEAR_PATTERN.sub("████", text_node)
                 redacted = DATE_RANGE_PATTERN.sub("████–████", redacted)
                 text_node.replace_with(redacted)
-
-        text_content = soup.get_text()
-        match = YEAR_PATTERN.search(text_content)
-        actual_year = int(match.group()) if match else None
 
         return {
             "title": title.replace("_", " "),
