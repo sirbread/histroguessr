@@ -1,0 +1,24 @@
+body {
+  font-family: system-ui, sans-serif;
+  max-width: 800px;
+  margin: 2em auto;
+  padding: 1em;
+  background: #fdfdfd;
+  color: #111;
+}
+
+#article-container {
+  border: 1px solid #ccc;
+  padding: 1em;
+  margin-bottom: 2em;
+  background: #fff;
+}
+
+#guess-area {
+  margin-bottom: 1em;
+}
+
+#result {
+  font-weight: bold;
+  margin-top: 1em;
+}
